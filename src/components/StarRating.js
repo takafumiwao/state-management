@@ -5,21 +5,24 @@ const Star = ({ selected = false, onSelect = (f) => f }) => (
   <FaStar color={selected ? "red" : "grey"} onClick={onSelect} />
 );
 
-export default function StarRating({ style = {}, totalStars = 5, ...props }) {
-  const [selectedStats, setSelectedStars] = useState(0);
+export default function StarRating({
+  totalStars = 5,
+  selectedStars = 0,
+  onRate = (f) => f,
+}) {
   return (
-    <div style={{ padding: "5px", ...style }} {...props}>
+    <>
       {[...Array(totalStars)].map((n, i) => (
         <Star
           key={i}
-          selected={selectedStats > i}
-          onSelect={() => setSelectedStars(i + 1)}
+          selected={selectedStars > i}
+          onSelect={() => onRate(i + 1)}
         />
       ))}
 
       <p>
-        {selectedStats} fo {totalStars} stars
+        {selectedStars} fo {totalStars} stars
       </p>
-    </div>
+    </>
   );
 }
